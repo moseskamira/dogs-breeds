@@ -1,7 +1,6 @@
-import 'package:dogs/data/models/breeds_response_message.dart';
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit.dart';
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit_state.dart';
-import 'package:dogs/presentation/breed_images_page.dart';
+import 'package:dogs/presentation/pages/homepage/widgets/breed_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +14,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  BreedsResponseMessage? responseMessage;
   List<String> breedKeys = [];
 
   @override
@@ -41,39 +39,27 @@ class _MyHomePageState extends State<MyHomePage> {
           }
 
           if (state is DBSuccessState) {
-            responseMessage = state.message;
-            final json = responseMessage?.toJson() ?? {};
-            setState(() {
-              breedKeys = json.keys.toList()..sort();
-            });
+            if (state.message != null) {
+              final json = state.message?.toJson() ?? {};
+              setState(() {
+                breedKeys = json.keys.toList()..sort();
+              });
+            }
           }
         },
         builder: (context, state) {
           if (state is DBLoginState) {
             return const Center(child: CircularProgressIndicator());
           }
-
           return ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
             itemCount: breedKeys.length,
             itemBuilder: (context, index) {
               final breed = breedKeys[index];
-              return Card(
-                elevation: 2,
-                margin: const EdgeInsets.symmetric(vertical: 6),
-                child: ListTile(
-                  title: Text(breed[0].toUpperCase() + breed.substring(1)),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => BreedImagesPage(breedName: breed),
-                      ),
-                    );
-                  },
-                ),
-              );
+              return BreedCard(breed: breed);
             },
           );
         },

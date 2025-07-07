@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dogs/data/models/breeds_response_message.dart';
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit.dart';
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit_state.dart';
+import 'package:dogs/presentation/pages/breedimages/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,14 +40,14 @@ class _BreedImagesPageState extends State<BreedImagesPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Breed Images'),
+        title: const Text('Breed Images'),
         centerTitle: true,
       ),
       body: BlocConsumer<BreedsCubit, BreedsCubitState>(
         listener: (context, state) {
           if (state is GBIErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Failed to load breeds")),
+              const SnackBar(content: Text("Failed to load breed images")),
             );
           }
 
@@ -64,41 +64,22 @@ class _BreedImagesPageState extends State<BreedImagesPage> {
 
           return Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
-                breedImages.isEmpty
-                    ? const Expanded(
-                        child: Center(child: Text('No images available.')),
-                      )
-                    : Expanded(
-                        child: ListView.builder(
-                          itemCount: breedImages.length,
-                          itemBuilder: (context, index) {
-                            final imageUrl = breedImages[index];
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: CachedNetworkImage(
-                                  imageUrl: imageUrl,
-                                  placeholder: (context, url) => const Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                  fit: BoxFit.cover,
-                                  height: 200,
-                                  width: double.infinity,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-              ],
-            ),
+            child: breedImages.isEmpty
+                ? const Center(child: Text('No images available.'))
+                : GridView.builder(
+                    itemCount: breedImages.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 0.75,
+                    ),
+                    itemBuilder: (context, index) {
+                      final imageUrl = breedImages[index];
+                      return ImageWidget(imageUrl: imageUrl);
+                    },
+                  ),
           );
         },
       ),
