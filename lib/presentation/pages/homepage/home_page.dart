@@ -1,6 +1,7 @@
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit.dart';
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit_state.dart';
-import 'package:dogs/presentation/pages/homepage/widgets/breed_card.dart';
+import 'package:dogs/presentation/pages/homepage/widgets/breed_widget.dart';
+import 'package:dogs/presentation/pages/homepage/widgets/fav_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,16 +52,36 @@ class _MyHomePageState extends State<MyHomePage> {
           if (state is DBLoginState) {
             return const Center(child: CircularProgressIndicator());
           }
-          return ListView.builder(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
+
+          return Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [FavButton()],
+                  ),
+                ),
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: breedKeys.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      childAspectRatio: 3 / 1,
+                    ),
+                    itemBuilder: (context, index) {
+                      final breed = breedKeys[index];
+                      return BreedWidget(breed: breed);
+                    },
+                  ),
+                ),
+              ],
             ),
-            itemCount: breedKeys.length,
-            itemBuilder: (context, index) {
-              final breed = breedKeys[index];
-              return BreedCard(breed: breed);
-            },
           );
         },
       ),
