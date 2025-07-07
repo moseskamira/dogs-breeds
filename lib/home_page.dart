@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dogs/data/models/breeds_response_message.dart';
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit.dart';
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit_state.dart';
+import 'package:dogs/presentation/breed_images_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,23 +16,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   BreedsResponseMessage? responseMessage;
-  List<String> breedImages = [];
   List<String> breedKeys = [];
-  String? selectedBreed;
 
   @override
   void initState() {
     super.initState();
     context.read<BreedsCubit>().fetchDogBreeds();
-  }
-
-  void _onBreedChanged(String? breed) {
-    if (breed == null) return;
-    setState(() {
-      selectedBreed = breed;
-      breedImages.clear();
-    });
-    context.read<BreedsCubit>().fetchBreedImages(breed);
   }
 
   @override
@@ -54,17 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
           if (state is DBSuccessState) {
             responseMessage = state.message;
             final json = responseMessage?.toJson() ?? {};
-            breedKeys = json.keys.toList()..sort();
-            if (breedKeys.isNotEmpty) {
-              selectedBreed = breedKeys.first;
-              if (selectedBreed == null) return;
-              context.read<BreedsCubit>().fetchBreedImages(selectedBreed!);
-            }
-          }
-
-          if (state is GBISuccessState) {
             setState(() {
-              breedImages = state.response.message ?? [];
+              breedKeys = json.keys.toList()..sort();
             });
           }
         },
@@ -73,58 +53,28 @@ class _MyHomePageState extends State<MyHomePage> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                DropdownButton<String>(
-                  value: selectedBreed,
-                  isExpanded: true,
-                  hint: const Text("Select Dog Breed"),
-                  items: breedKeys.map((String breed) {
-                    return DropdownMenuItem<String>(
-                      value: breed,
-                      child: Text(breed),
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            itemCount: breedKeys.length,
+            itemBuilder: (context, index) {
+              final breed = breedKeys[index];
+              return Card(
+                elevation: 2,
+                margin: const EdgeInsets.symmetric(vertical: 6),
+                child: ListTile(
+                  title: Text(breed[0].toUpperCase() + breed.substring(1)),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BreedImagesPage(breedName: breed),
+                      ),
                     );
-                  }).toList(),
-                  onChanged: _onBreedChanged,
+                  },
                 ),
-                const SizedBox(height: 10),
-                state is GBILoginState
-                    ? Text('Updating list, Please wait')
-                    : breedImages.isEmpty
-                        ? const Expanded(
-                            child: Center(child: Text('No images available.')),
-                          )
-                        : Expanded(
-                            child: ListView.builder(
-                              itemCount: breedImages.length,
-                              itemBuilder: (context, index) {
-                                final imageUrl = breedImages[index];
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: CachedNetworkImage(
-                                      imageUrl: imageUrl,
-                                      placeholder: (context, url) =>
-                                          const Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
-                                      fit: BoxFit.cover,
-                                      height: 200,
-                                      width: double.infinity,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-              ],
-            ),
+              );
+            },
           );
         },
       ),
