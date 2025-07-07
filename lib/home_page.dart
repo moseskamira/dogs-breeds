@@ -41,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        centerTitle: true,
       ),
       body: BlocConsumer<BreedsCubit, BreedsCubitState>(
         listener: (context, state) {
@@ -52,14 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
           if (state is DBSuccessState) {
             responseMessage = state.message;
-
-            // Convert JSON keys to a dropdown list
             final json = responseMessage?.toJson() ?? {};
             breedKeys = json.keys.toList()..sort();
-
-            // Automatically fetch images for the first breed
             if (breedKeys.isNotEmpty) {
               selectedBreed = breedKeys.first;
+              if (selectedBreed == null) return;
               context.read<BreedsCubit>().fetchBreedImages(selectedBreed!);
             }
           }
@@ -92,36 +90,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   onChanged: _onBreedChanged,
                 ),
                 const SizedBox(height: 10),
-                breedImages.isEmpty
-                    ? const Expanded(
-                        child: Center(child: Text('No images available.')),
-                      )
-                    : Expanded(
-                        child: ListView.builder(
-                          itemCount: breedImages.length,
-                          itemBuilder: (context, index) {
-                            final imageUrl = breedImages[index];
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: CachedNetworkImage(
-                                  imageUrl: imageUrl,
-                                  placeholder: (context, url) => const Center(
-                                    child: CircularProgressIndicator(),
+                state is GBILoginState
+                    ? Text('Updating list, Please wait')
+                    : breedImages.isEmpty
+                        ? const Expanded(
+                            child: Center(child: Text('No images available.')),
+                          )
+                        : Expanded(
+                            child: ListView.builder(
+                              itemCount: breedImages.length,
+                              itemBuilder: (context, index) {
+                                final imageUrl = breedImages[index];
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: CachedNetworkImage(
+                                      imageUrl: imageUrl,
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                      fit: BoxFit.cover,
+                                      height: 200,
+                                      width: double.infinity,
+                                    ),
                                   ),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                  fit: BoxFit.cover,
-                                  height: 200,
-                                  width: double.infinity,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+                                );
+                              },
+                            ),
+                          ),
               ],
             ),
           );

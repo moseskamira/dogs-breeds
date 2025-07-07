@@ -1,16 +1,38 @@
-# dogs
+# Dog Breeds App 🐶
 
-Dog Breeds
+A Flutter application showcasing a catalog of dog breeds with images fetched from the Dog CEO API.
+This project demonstrates clean architecture, proper state management using `flutter_bloc`, and
+robust UI design using best practices.
+
+## Features
+
+- ✅ View a list of dog breeds
+- ✅ Select a breed to view related images
+- ✅ Like/unlike images (optional enhancement)
+- ✅ View favorite images with breed filters
+- ✅ Error handling for network failures
+
+## Architecture
+
+- Clean Architecture (Data, Domain, Presentation layers)
+- State Management: `flutter_bloc`
+- Dependency Injection: `provider`
+- Networking: `retrofit` + `dio`
+- Caching: `cached_network_image`
+
+## API
+
+- [Dog CEO API](https://dog.ceo/dog-api)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Clone the repo
+2. cd into root directory
+3. Run `flutter pub get`
+4. Run `flutter run`
 
-A few resources to get you started if this is your first Flutter project:
+> ⚠️ Ensure all plugins are initialized properly before building (especially `path_provider`).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## BreedImages:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Breeder Images](/images/list.png)
