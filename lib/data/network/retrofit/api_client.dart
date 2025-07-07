@@ -13,6 +13,6 @@ abstract class ApiClient {
   @GET(Endpoints.breeds)
   Future<dynamic> fetchBreeds();
 
-  @GET(Endpoints.images)
+  @GET(Endpoints.breedImages)
   Future<dynamic> fetchBreedImages(@Path('name') String breedName);
 }

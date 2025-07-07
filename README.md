@@ -35,4 +35,9 @@ robust UI design using best practices.
 
 ## BreedImages:
 
-![Breeder Images](/images/list.png)
+![Breed Images](/images/images.png)
+
+
+## Breeds:
+
+![Breeds](/images/breeds.png)
