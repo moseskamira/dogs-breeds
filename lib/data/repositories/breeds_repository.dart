@@ -64,4 +64,10 @@ class BreedsRepository {
       () => _apiClient.fetchBreeds(),
     );
   }
+
+  Future<NetworkResponse> fetchBreedImages(String breedName) async {
+    return makeRequest(
+      () => _apiClient.fetchBreedImages(breedName),
+    );
+  }
 }

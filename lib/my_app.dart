@@ -9,21 +9,26 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider(
-          create: (context) => BreedsCubit(
-            repository: context.read<BreedsRepository>(),
-          ),
-        ),
+        RepositoryProvider(create: (_) => BreedsRepository()),
       ],
-      child: MaterialApp(
-        title: 'Dog Breeds',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => BreedsCubit(
+              repository: context.read<BreedsRepository>(),
+            ),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'Dog Breeds',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          home: const MyHomePage(title: 'Dog Breeds'),
         ),
-        home: const MyHomePage(title: 'Dog Breeds'),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:dogs/data/models/breeds_response_message.dart';
+import 'package:dogs/data/network/response/breed_images_response.dart';
 import 'package:dogs/data/network/response/breeds_response.dart';
 import 'package:dogs/data/repositories/breeds_repository.dart';
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit_state.dart';
@@ -20,6 +21,18 @@ class BreedsCubit extends Cubit<BreedsCubitState> {
       emit(DBSuccessState(message: responseMessage));
     } else {
       emit(DBErrorState(message: response.error));
+    }
+  }
+
+  void fetchBreedImages(String breedName) async {
+    emit(GBILoginState());
+    var response = await repository.fetchBreedImages(breedName);
+    if (response.success) {
+      final dynamicResp = response.data;
+      BreedImagesResponse resp = BreedImagesResponse.fromJson(dynamicResp);
+      emit(GBISuccessState(response: resp));
+    } else {
+      emit(GBIErrorState(message: response.error));
     }
   }
 }
