@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../breedimages/breed_images_page.dart';
+import '../../../routes/route_paths.dart';
 
 class BreedWidget extends StatelessWidget {
   final String breed;
@@ -11,12 +12,7 @@ class BreedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => BreedImagesPage(breedName: breed),
-          ),
-        );
+        context.push(RoutePath.imagesPage, extra: breed);
       },
       child: Container(
         decoration: BoxDecoration(
