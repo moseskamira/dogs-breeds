@@ -1,7 +1,9 @@
 import 'package:dogs/data/repositories/breeds_repository.dart';
+import 'package:dogs/presentation/bloc/app_data_provider.dart';
 import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import 'presentation/pages/homepage/home_page.dart';
 
@@ -21,13 +23,16 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
+        child: ChangeNotifierProvider(
+          create: (_) => AppDataProvider(),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            home: const MyHomePage(title: 'Dog Breeds'),
           ),
-          home: const MyHomePage(title: 'Dog Breeds'),
         ),
       ),
     );
