@@ -1,3 +1,4 @@
+import 'package:dogs/presentation/pages/favpage/fav_page.dart';
 import 'package:flutter/material.dart';
 
 class FavButton extends StatelessWidget {
@@ -7,12 +8,12 @@ class FavButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (_) => BreedImagesPage(breedName: breed),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FavPage(),
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(

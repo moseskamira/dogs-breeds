@@ -41,3 +41,8 @@ robust UI design using best practices.
 ## Breeds:
 
 ![Breeds](/images/breeds.png)
+
+
+## Favourites:
+
+![Breeds](/images/fav.png)

@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dogs/presentation/bloc/app_data_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ImageWidget extends StatefulWidget {
   final String imageUrl;
@@ -11,16 +13,13 @@ class ImageWidget extends StatefulWidget {
 }
 
 class _ImageWidgetState extends State<ImageWidget> {
-  bool isLiked = false;
-
-  void toggleLike() {
-    setState(() {
-      isLiked = !isLiked;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final providerWatch = context.watch<AppDataProvider>();
+    final providerRead = context.read<AppDataProvider>();
+    final favImages = providerWatch.favImages;
+    bool isFavorited = favImages.contains(widget.imageUrl);
+
     return Stack(
       children: [
         ClipRRect(
@@ -39,10 +38,16 @@ class _ImageWidgetState extends State<ImageWidget> {
           top: 6,
           right: 6,
           child: GestureDetector(
-            onTap: toggleLike,
+            onTap: () {
+              if (isFavorited) {
+                providerRead.updateFavImages(widget.imageUrl, false);
+              } else {
+                providerRead.updateFavImages(widget.imageUrl, true);
+              }
+            },
             child: Icon(
-              isLiked ? Icons.favorite : Icons.favorite_border,
-              color: isLiked ? Colors.red : Colors.white,
+              isFavorited ? Icons.favorite : Icons.favorite_border,
+              color: isFavorited ? Colors.red : Colors.white,
               size: 28,
               shadows: [
                 Shadow(
