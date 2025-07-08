@@ -1,5 +1,7 @@
-import 'package:dogs/presentation/pages/favpage/fav_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../routes/route_paths.dart';
 
 class FavButton extends StatelessWidget {
   const FavButton({super.key});
@@ -8,12 +10,7 @@ class FavButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => FavPage(),
-          ),
-        );
+        context.push(RoutePath.favPage);
       },
       child: Container(
         decoration: BoxDecoration(
