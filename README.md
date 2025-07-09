@@ -46,3 +46,7 @@ robust UI design using best practices.
 ## Favourites:
 
 ![Breeds](/images/fav.png)
+
+
+## To generate auto-generated files
+- flutter pub run build_runner watch --delete-conflicting-outputs

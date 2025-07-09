@@ -52,7 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
           if (state is DBLoginState) {
             return const Center(child: CircularProgressIndicator());
           }
-
           return Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
