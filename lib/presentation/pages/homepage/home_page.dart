@@ -42,9 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if (state is DBSuccessState) {
             if (state.message != null) {
               final json = state.message?.toJson() ?? {};
-              setState(() {
-                breedKeys = json.keys.toList()..sort();
-              });
+              breedKeys = json.keys.toList()..sort();
             }
           }
         },

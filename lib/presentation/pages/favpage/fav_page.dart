@@ -3,18 +3,8 @@ import 'package:dogs/presentation/pages/breedimages/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FavPage extends StatefulWidget {
+class FavPage extends StatelessWidget {
   const FavPage({super.key});
-
-  @override
-  State<FavPage> createState() => _FavPageState();
-}
-
-class _FavPageState extends State<FavPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
