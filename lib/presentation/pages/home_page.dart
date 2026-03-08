@@ -1,7 +1,7 @@
-import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit.dart';
-import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit_state.dart';
-import 'package:dogs/presentation/pages/homepage/widgets/breed_widget.dart';
-import 'package:dogs/presentation/pages/homepage/widgets/fav_button.dart';
+import 'package:dogs/presentation/bloc/breeds_cubit.dart';
+import 'package:dogs/presentation/bloc/breeds_cubit_state.dart';
+import 'package:dogs/presentation/widgets/breed_widget.dart';
+import 'package:dogs/presentation/widgets/fav_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,9 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if (state is DBSuccessState) {
             if (state.message != null) {
               final json = state.message?.toJson() ?? {};
-              setState(() {
-                breedKeys = json.keys.toList()..sort();
-              });
+              breedKeys = json.keys.toList()..sort();
             }
           }
         },
@@ -52,7 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
           if (state is DBLoginState) {
             return const Center(child: CircularProgressIndicator());
           }
-
           return Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(

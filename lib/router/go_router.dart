@@ -1,7 +1,7 @@
-import 'package:dogs/presentation/pages/breedimages/breed_images_page.dart';
-import 'package:dogs/presentation/pages/favpage/fav_page.dart';
-import 'package:dogs/presentation/pages/homepage/home_page.dart';
-import 'package:dogs/presentation/routes/route_paths.dart';
+import 'package:dogs/presentation/pages/breed_images_page.dart';
+import 'package:dogs/presentation/pages/fav_page.dart';
+import 'package:dogs/presentation/pages/home_page.dart';
+import 'package:dogs/router/route_paths.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 

@@ -1,13 +1,14 @@
 import 'package:dogs/data/repositories/breeds_repository.dart';
-import 'package:dogs/presentation/bloc/app_data_provider.dart';
-import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit.dart';
-import 'package:dogs/presentation/routes/go_router.dart';
+import 'package:dogs/presentation/bloc/breeds_cubit.dart';
+import 'package:dogs/router/go_router.dart';
+import 'package:dogs/shared/providers/app_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
