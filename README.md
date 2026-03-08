@@ -109,7 +109,7 @@ lib/
 │   ├── route_paths/
 │   └── go_router.dart
 │
-├── my_app/
+├── my_app.dart
 └── main.dart
 ```
 
