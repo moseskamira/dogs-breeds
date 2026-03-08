@@ -1,7 +1,7 @@
-import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit.dart';
-import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit_state.dart';
-import 'package:dogs/presentation/pages/homepage/widgets/breed_widget.dart';
-import 'package:dogs/presentation/pages/homepage/widgets/fav_button.dart';
+import 'package:dogs/presentation/bloc/breeds_cubit.dart';
+import 'package:dogs/presentation/bloc/breeds_cubit_state.dart';
+import 'package:dogs/presentation/widgets/breed_widget.dart';
+import 'package:dogs/presentation/widgets/fav_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

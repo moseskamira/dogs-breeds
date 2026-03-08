@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../routes/route_paths.dart';
+import '../../router/route_paths.dart';
 
 class FavButton extends StatelessWidget {
   const FavButton({super.key});

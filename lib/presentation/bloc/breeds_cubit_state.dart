@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../data/models/breeds_response_message.dart';
-import '../../../data/network/response/breed_images_response.dart';
+import '../../data/models/breeds_response_message.dart';
+import '../../data/network/response/breed_images_response.dart';
 
 abstract class BreedsCubitState extends Equatable {
   const BreedsCubitState();

@@ -1,7 +1,7 @@
 import 'package:dogs/data/models/breeds_response_message.dart';
-import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit.dart';
-import 'package:dogs/presentation/bloc/dogs_bloc/breeds_cubit_state.dart';
-import 'package:dogs/presentation/pages/breedimages/widgets/image_widget.dart';
+import 'package:dogs/presentation/bloc/breeds_cubit.dart';
+import 'package:dogs/presentation/bloc/breeds_cubit_state.dart';
+import 'package:dogs/presentation/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
